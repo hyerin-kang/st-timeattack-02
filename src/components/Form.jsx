@@ -1,18 +1,33 @@
-import React from "react";
+// import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
-const Form = () => {
+const Form = ({
+  inputTitle,
+  setInputTitle,
+  inputContent,
+  setInputContent,
+  handleSubmitTodo,
+}) => {
   return (
-    <StyledForm>
+    <StyledForm onSubmit={handleSubmitTodo}>
       <StyledInput
         type="text"
         name="title"
         placeholder="할 일 제목을 입력하세요"
+        value={inputTitle}
+        onChange={(e) => {
+          setInputTitle(e.target.value);
+        }}
       />
       <StyledInput
         type="text"
         name="content"
         placeholder="할 일 내용을 입력하세요"
+        value={inputContent}
+        onChange={(e) => {
+          setInputContent(e.target.value);
+        }}
       />
       <StyledButton type="submit">추가</StyledButton>
     </StyledForm>
