@@ -1,44 +1,18 @@
 import styled from "styled-components";
 import Form from "../components/Form";
 import List from "../components/List";
-import { useState } from "react";
+
 // import { useState } from "react";
 
-const MainPage = ({ todoList, setTodoList }) => {
-  const [inputTitle, setInputTitle] = useState("");
-  const [inputContent, setInputContent] = useState("");
-
-  const handleSubmitTodo = (e) => {
-    e.preventDefault();
-    if (!inputTitle || !inputContent) {
-      alert("제목과 내용을 모두 입력하세요");
-      return;
-    }
-    alert("할일을 추가하였습니다.");
-    const newTodo = {
-      id: crypto.randomUUID(),
-      title: inputTitle,
-      content: inputContent,
-      isDone: false,
-    };
-    setTodoList([...todoList, newTodo]);
-    setInputTitle("");
-    setInputContent("");
-  };
+const MainPage = () => {
   return (
     <StContainer>
       <StHeader>
         <h1>내일배움캠프 스탠다드반 투두리스트</h1>
       </StHeader>
       <StMain>
-        <Form
-          inputTitle={inputTitle}
-          setInputTitle={setInputTitle}
-          inputContent={inputContent}
-          setInputContent={setInputContent}
-          handleSubmitTodo={handleSubmitTodo}
-        />
-        <List todoList={todoList} setTodoList={setTodoList} />
+        <Form />
+        <List />
       </StMain>
       <StFooter>
         <p>Copyright 2025 스파르타 내일배움캠프</p>

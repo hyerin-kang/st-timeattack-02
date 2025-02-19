@@ -1,26 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useTodoContext } from "../context/TodoContext";
 
-const List = ({ todoList, setTodoList }) => {
+const List = () => {
+  const { todoList, doneToggle, removeTodo } = useTodoContext();
+
   const navigate = useNavigate();
   const handleDoneToggle = (id) => {
     // TODO: 완료 처리 : 토글링 (완료일때 미완료로, 미완료일때 완료로)
-    const toggleDone = todoList.map(function (list) {
-      if (list.id == id) {
-        return { ...list, isDone: !list.isDone };
-      } else {
-        return list;
-      }
-    });
-    setTodoList(toggleDone);
+    doneToggle(id);
   };
 
   const handleDelete = (id) => {
     // TODO: 삭제 처리
-    const filterId = todoList.filter(function (list) {
-      return list.id !== id;
-    });
-    setTodoList(filterId);
+    removeTodo(id);
   };
   const goToDetailPage = (id) => {
     navigate(`/detail/${id}`);

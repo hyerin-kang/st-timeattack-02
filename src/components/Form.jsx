@@ -1,14 +1,26 @@
 // import React from "react";
 // import { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import { useTodoContext } from "../context/TodoContext";
 
-const Form = ({
-  inputTitle,
-  setInputTitle,
-  inputContent,
-  setInputContent,
-  handleSubmitTodo,
-}) => {
+const Form = () => {
+  const { addTodo } = useTodoContext();
+  // console.log(addTodo);
+  const [inputTitle, setInputTitle] = useState("");
+  const [inputContent, setInputContent] = useState("");
+
+  const handleSubmitTodo = (e) => {
+    e.preventDefault();
+    if (!inputTitle || !inputContent) {
+      alert("제목과 내용을 모두 입력하세요");
+      return;
+    }
+    alert("할일을 추가하였습니다.");
+    addTodo(inputTitle, inputContent);
+    setInputTitle("");
+    setInputContent("");
+  };
   return (
     <StyledForm onSubmit={handleSubmitTodo}>
       <StyledInput

@@ -1,7 +1,10 @@
+// import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useTodoContext } from "../context/TodoContext";
 
-const DetailPage = ({ todoList }) => {
+const DetailPage = () => {
+  const { todoList } = useTodoContext();
   //useParams
   const { id } = useParams();
   //find
