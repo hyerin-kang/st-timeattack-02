@@ -1,18 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const List = ({ todoList, setTodoList }) => {
+  const navigate = useNavigate();
   const handleDoneToggle = (id) => {
     // TODO: 완료 처리 : 토글링 (완료일때 미완료로, 미완료일때 완료로)
-    //????????????
-    // todoList.map(function (list) {
-    //   if (list.id == id) {
-    //     if (list.isDone) {
-    //       return (list.isDone = false);
-    //     } else {
-    //       return (list.isDone = true);
-    //     }
-    //   }
-    // });
+    const toggleDone = todoList.map(function (list) {
+      if (list.id == id) {
+        return { ...list, isDone: !list.isDone };
+      } else {
+        return list;
+      }
+    });
+    setTodoList(toggleDone);
   };
 
   const handleDelete = (id) => {
@@ -22,22 +22,36 @@ const List = ({ todoList, setTodoList }) => {
     });
     setTodoList(filterId);
   };
+  const goToDetailPage = (id) => {
+    navigate(`/detail/${id}`);
+  };
 
   return (
     <StyledList>
       {todoList.map((item) => (
-        <StyledListItem key={item.id}>
+        <StyledListItem
+          key={item.id}
+          onClick={() => {
+            goToDetailPage(item.id);
+          }}
+        >
           <StyledTitle>{item.title}</StyledTitle>
           <StyledContent>{item.content}</StyledContent>
           <StyledStatus>{item.isDone ? "완료" : "미완료"}</StyledStatus>
           <StyledButton
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               handleDoneToggle(item.id);
             }}
           >
             {item.isDone ? "취소" : "완료"}
           </StyledButton>
-          <StyledButton onClick={() => handleDelete(item.id)}>
+          <StyledButton
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDelete(item.id);
+            }}
+          >
             삭제
           </StyledButton>
         </StyledListItem>

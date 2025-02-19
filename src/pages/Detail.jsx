@@ -1,13 +1,26 @@
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-const DetailPage = () => {
+const DetailPage = ({ todoList }) => {
+  //useParams
+  const { id } = useParams();
+  //find
+  const findSameId = todoList.find(function (list) {
+    return list.id == id;
+  });
+  const navigate = useNavigate();
+  const goToHomePage = () => {
+    navigate("/");
+  };
   return (
     <StyledContainer>
       <StyledTitle>할 일 상세 페이지</StyledTitle>
-      <StyledText>할일 제목 : </StyledText>
-      <StyledText>할일 내용 : </StyledText>
-      <StyledText>할일 완료 여부 : </StyledText>
-      <StyledButton>메인 페이지로 돌아가기</StyledButton>
+      <StyledText>할일 제목 : {findSameId.title}</StyledText>
+      <StyledText>할일 내용 : {findSameId.content}</StyledText>
+      <StyledText>
+        할일 완료 여부 : {findSameId.isDone ? "완료" : "미완료"}
+      </StyledText>
+      <StyledButton onClick={goToHomePage}>메인 페이지로 돌아가기</StyledButton>
     </StyledContainer>
   );
 };

@@ -2,18 +2,11 @@ import styled from "styled-components";
 import Form from "../components/Form";
 import List from "../components/List";
 import { useState } from "react";
+// import { useState } from "react";
 
-const MainPage = () => {
+const MainPage = ({ todoList, setTodoList }) => {
   const [inputTitle, setInputTitle] = useState("");
   const [inputContent, setInputContent] = useState("");
-  const [todoList, setTodoList] = useState([
-    {
-      id: 1,
-      title: "할일제목",
-      content: "할일내용",
-      isDone: true,
-    },
-  ]);
 
   const handleSubmitTodo = (e) => {
     e.preventDefault();
@@ -29,6 +22,8 @@ const MainPage = () => {
       isDone: false,
     };
     setTodoList([...todoList, newTodo]);
+    setInputTitle("");
+    setInputContent("");
   };
   return (
     <StContainer>
@@ -43,12 +38,7 @@ const MainPage = () => {
           setInputContent={setInputContent}
           handleSubmitTodo={handleSubmitTodo}
         />
-        <List
-          inputTitle={inputTitle}
-          inputContent={inputContent}
-          todoList={todoList}
-          setTodoList={setTodoList}
-        />
+        <List todoList={todoList} setTodoList={setTodoList} />
       </StMain>
       <StFooter>
         <p>Copyright 2025 스파르타 내일배움캠프</p>
